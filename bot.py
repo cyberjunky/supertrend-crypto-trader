@@ -61,7 +61,10 @@ class Bot:
 
             exchange = exchange_cls({
                 'apiKey': api_key,
-                'secret': api_secret
+                'secret': api_secret,
+                'options': {
+                    'defaultType': 'linear'
+                }
             })
 
             exchange.set_sandbox_mode(sandbox_mode)
@@ -75,8 +78,8 @@ class Bot:
                 raise
 
             for market in all_markets:
-                currency = market.split('/')[0]
-                if market.endswith('/' + config['basecurrency']) and currency in watchlist:
+                currency = market.split(':')[0]
+                if market.endswith(':' + config['basecurrency']) and currency in watchlist:
                     markets.append(market)
 
             base_currency = config['basecurrency']
